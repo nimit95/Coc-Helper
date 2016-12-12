@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -86,7 +87,8 @@ public class VideoFragment extends Fragment {
                Log.d("database", "Error applying batch insert", e);
            }
            Cursor c=getContext().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
-            recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
+           recyclerView.setLayoutManager( new GridLayoutManager(getActivity(),2));
+           recyclerView.setHasFixedSize(true);
            VideoListCursorAdapter videoListCursorAdapter= new VideoListCursorAdapter(getActivity(),c);
            recyclerView.setAdapter(videoListCursorAdapter);
            /*c.moveToFirst();
