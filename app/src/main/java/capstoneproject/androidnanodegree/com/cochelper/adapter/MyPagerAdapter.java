@@ -3,6 +3,7 @@ package capstoneproject.androidnanodegree.com.cochelper.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
 
 import capstoneproject.androidnanodegree.com.cochelper.fragments.FileFragment;
 import capstoneproject.androidnanodegree.com.cochelper.fragments.VideoFragment;
@@ -19,7 +20,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         switch (position)
         {
             case 0: return "Videos";
-            default: return "Search";
+            default: return "Profile";
         }
     }
 
@@ -33,7 +34,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new VideoFragment();
             case 1:
-                return new VideoFragment();
+                return new FileFragment();
             default:
                 return null;
         }
