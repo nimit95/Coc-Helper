@@ -1,4 +1,4 @@
-package capstoneproject.androidnanodegree.com.cochelper.Utils;
+package capstoneproject.androidnanodegree.com.cochelper.utils;
 
 /**
  * Created by Nimit Agg on 12-12-2016.
