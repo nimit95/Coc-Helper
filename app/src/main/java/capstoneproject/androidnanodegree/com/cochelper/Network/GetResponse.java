@@ -1,4 +1,4 @@
-package capstoneproject.androidnanodegree.com.cochelper.Network;
+package capstoneproject.androidnanodegree.com.cochelper.network;
 
 import java.io.IOException;
 

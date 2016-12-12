@@ -1,4 +1,4 @@
-package capstoneproject.androidnanodegree.com.cochelper.Utils;
+package capstoneproject.androidnanodegree.com.cochelper.utils;
 
 /**
  * Created by Nimit Agg on 12-12-2016.
@@ -7,6 +7,8 @@ package capstoneproject.androidnanodegree.com.cochelper.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
 public class SuperPrefs implements Constants {
 

@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import java.io.IOException;
 
-import capstoneproject.androidnanodegree.com.cochelper.Network.GetResponse;
+import capstoneproject.androidnanodegree.com.cochelper.network.GetResponse;
 import capstoneproject.androidnanodegree.com.cochelper.R;
-import capstoneproject.androidnanodegree.com.cochelper.Utils.Constants;
+import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
 /**
  * Created by dell on 12/12/2016.
@@ -33,6 +33,7 @@ public class FileFragment extends Fragment {
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     public class Asy extends AsyncTask<Void,Void,String>{
 
         @Override
