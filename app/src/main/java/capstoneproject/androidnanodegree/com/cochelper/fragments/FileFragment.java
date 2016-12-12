@@ -23,8 +23,8 @@ public class FileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.file_fragment, container, false);
-
-
+        Asy a=new Asy();
+        a.execute();
 //        Log.e("dd",result);
         return view;
     }
@@ -49,8 +49,9 @@ public class FileFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.d("ijujnj",s);
+            //super.onPostExecute(s);
+            Log.e("ijujnj",s);
+
         }
     }
 }
