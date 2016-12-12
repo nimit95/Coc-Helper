@@ -9,7 +9,7 @@ public interface Constants {
 
     String EVENT_SERVICE = "service";
     String TAG_SHARED_PREF = "sharedPreferences";
-
+    String BASE_URL_PROFILE="https://api.clashofclans.com/v1/players/%23G2U9YL8L";
 
 
 }
