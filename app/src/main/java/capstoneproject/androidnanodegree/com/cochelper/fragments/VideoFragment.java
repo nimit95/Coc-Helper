@@ -14,6 +14,7 @@ import java.util.List;
 import capstoneproject.androidnanodegree.com.cochelper.R;
 import capstoneproject.androidnanodegree.com.cochelper.models.Video;
 import capstoneproject.androidnanodegree.com.cochelper.network.YoutubeAPIResponse;
+import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
 /**
  * Created by dell on 12/12/2016.
@@ -35,7 +36,7 @@ public class VideoFragment extends Fragment {
        protected Void doInBackground(Void... voids) {
            YoutubeAPIResponse obj=new YoutubeAPIResponse();
            try {
-               String x=obj.run("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=viewCount&q=clash of clans&type=video&key=AIzaSyAsKOFTWUN1yRGJ3Bd0SoRWCzSNWkybFoU");
+               String x=obj.run(Constants.YOUTUBE_QUERY_URL);
                Log.e("doInBackground:", x );
            } catch (IOException e) {
                e.printStackTrace();
