@@ -6,9 +6,13 @@ package capstoneproject.androidnanodegree.com.cochelper.models;
 
 public class Snippet {
     private String title;
-
+    private String description;
     public Thumbnails getThumbnails() {
         return thumbnails;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setThumbnails(Thumbnails thumbnails) {

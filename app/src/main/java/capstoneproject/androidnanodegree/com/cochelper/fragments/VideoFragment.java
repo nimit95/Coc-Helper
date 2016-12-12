@@ -1,7 +1,10 @@
 package capstoneproject.androidnanodegree.com.cochelper.fragments;
 
+import android.content.ContentProviderOperation;
+import android.content.OperationApplicationException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +15,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import capstoneproject.androidnanodegree.com.cochelper.R;
+import capstoneproject.androidnanodegree.com.cochelper.database.DatabseColumns;
+import capstoneproject.androidnanodegree.com.cochelper.database.QuoteProvider;
 import capstoneproject.androidnanodegree.com.cochelper.models.Profile;
 import capstoneproject.androidnanodegree.com.cochelper.models.Video;
 import capstoneproject.androidnanodegree.com.cochelper.models.VideoList;
 import capstoneproject.androidnanodegree.com.cochelper.network.YoutubeAPIResponse;
 import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
-/**
- * Created by dell on 12/12/2016.
- */
 
 public class VideoFragment extends Fragment {
     //public final String TAG=getContext().getClass().getSimpleName();
@@ -56,7 +59,25 @@ public class VideoFragment extends Fragment {
            Gson gson = new GsonBuilder().create();
 
            VideoList videoList = gson.fromJson(s, VideoList.class);
-           Log.d("uhuh", "onPostExecute: " + videoList.getVidList().get(0).getSnippet().getTitle());
+
+           ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>(videoList.getVidList().size());
+
+           for (Video planet : videoList.getVidList()){
+               ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
+                       QuoteProvider.Quotes.CONTENT_URI);
+               builder.withValue(DatabseColumns.VIDEOID, planet.getId().getVideoId());
+               builder.withValue(DatabseColumns.DESCRIPTION, planet.getSnippet().getDescription());
+               builder.withValue(DatabseColumns.TITLE, planet.getSnippet().getTitle());
+               builder.withValue(DatabseColumns.URL, planet.getSnippet().getThumbnails().getDef().getUrl());
+               batchOperations.add(builder.build());
+           }
+
+           try{
+               getActivity().getContentResolver().applyBatch(QuoteProvider.AUTHORITY, batchOperations);
+           } catch(RemoteException | OperationApplicationException e){
+               Log.d("database", "Error applying batch insert", e);
+           }
+           //Log.d("uhuh", "onPostExecute: " + videoList.getVidList().get(0).getSnippet().getTitle());
        }
    }
 }
