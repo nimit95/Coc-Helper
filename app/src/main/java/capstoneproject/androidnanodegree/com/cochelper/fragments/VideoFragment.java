@@ -35,10 +35,20 @@ import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 public class VideoFragment extends Fragment {
     //public final String TAG=getContext().getClass().getSimpleName();
     RecyclerView recyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.video_fragment, container, false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
+
+        Cursor c=getContext().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
+        if(c.getCount()!=0)
+        {
+            recyclerView.setLayoutManager( new GridLayoutManager(getActivity(),2));
+            recyclerView.setHasFixedSize(true);
+            VideoListCursorAdapter videoListCursorAdapter= new VideoListCursorAdapter(getActivity(),c);
+            recyclerView.setAdapter(videoListCursorAdapter);
+        }
         new ShowList().execute();
         return view;
     }
@@ -70,7 +80,10 @@ public class VideoFragment extends Fragment {
            ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>(videoList.getVidList().size());
 
 
-
+            if(videoList.getVidList().size()!=0)
+            {
+                getContext().getContentResolver().delete(QuoteProvider.Quotes.CONTENT_URI,null,null);
+            }
            for (Video planet : videoList.getVidList()){
                ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                        QuoteProvider.Quotes.CONTENT_URI);
@@ -86,16 +99,13 @@ public class VideoFragment extends Fragment {
            } catch(RemoteException | OperationApplicationException e){
                Log.d("database", "Error applying batch insert", e);
            }
+
+
            Cursor c=getContext().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
            recyclerView.setLayoutManager( new GridLayoutManager(getActivity(),2));
            recyclerView.setHasFixedSize(true);
            VideoListCursorAdapter videoListCursorAdapter= new VideoListCursorAdapter(getActivity(),c);
            recyclerView.setAdapter(videoListCursorAdapter);
-           /*c.moveToFirst();
-           Log.e("onPostExecute: ",c.getString(c.getColumnIndex("title")) );
-           c.moveToLast();
-           Log.e("onPostExecute: ", c.getString(c.getColumnIndex("title")));*/
-           //Log.d("uhuh", "onPostExecute: " + videoList.getVidList().get(0).getSnippet().getTitle());
        }
    }
 }

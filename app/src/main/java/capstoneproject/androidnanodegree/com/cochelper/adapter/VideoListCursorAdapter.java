@@ -43,6 +43,7 @@ public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListC
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.video_card, parent, false);
         ViewHolder vh = new ViewHolder(itemView);
+
         return vh;
     }
 
@@ -53,5 +54,6 @@ public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListC
         Picasso.with(context)
                 .load(cursor.getString(cursor.getColumnIndex("url")))
                 .into(viewHolder.image);
+
     }
 }

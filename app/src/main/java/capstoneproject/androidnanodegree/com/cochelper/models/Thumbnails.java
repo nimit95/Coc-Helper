@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Thumbnails {
-    @SerializedName("default")
+    @SerializedName("high")
     private Default def;
 
     public Default getDef() {
