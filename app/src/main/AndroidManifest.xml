@@ -15,6 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="capstoneproject.androidnanodegree.com.cochelper.database.QuoteProvider"
+            android:name="capstoneproject.androidnanodegree.com.cochelper.database.generated.QuoteProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

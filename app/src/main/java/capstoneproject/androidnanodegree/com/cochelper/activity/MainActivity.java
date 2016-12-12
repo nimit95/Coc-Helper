@@ -15,11 +15,11 @@ import capstoneproject.androidnanodegree.com.cochelper.adapter.MyPagerAdapter;
 
 public class MainActivity extends AppCompatActivity  {
 
-    @BindView(R.id.view_pager)
+    //@BindView(R.id.view_pager)
     ViewPager viewPager;
-    @BindView(R.id.toolbar)
+    //@BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.tab_layout)
+   // @BindView(R.id.tab_layout)
     TabLayout tabLayout;
 
     @Override
@@ -28,7 +28,10 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        viewPager= (ViewPager) findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
         MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setOffscreenPageLimit(2);
