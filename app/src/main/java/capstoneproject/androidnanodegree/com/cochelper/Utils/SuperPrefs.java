@@ -8,6 +8,8 @@ package capstoneproject.androidnanodegree.com.cochelper.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
+
 public class SuperPrefs implements Constants {
 
     SharedPreferences sharedPreferences;

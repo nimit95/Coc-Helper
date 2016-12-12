@@ -38,6 +38,7 @@ public class FileFragment extends Fragment {
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     public class Asy extends AsyncTask<Void,Void,String>{
 
         @Override
