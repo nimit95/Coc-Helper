@@ -13,12 +13,10 @@ import butterknife.ButterKnife;
 import capstoneproject.androidnanodegree.com.cochelper.R;
 import capstoneproject.androidnanodegree.com.cochelper.adapter.MyPagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class MainActivity extends AppCompatActivity  {
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
-
-    PagerAdapter pagerAdapter;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tab_layout)
@@ -31,29 +29,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        tabLayout.addTab(tabLayout.newTab().setText("Videos"));
-        tabLayout.addTab(tabLayout.newTab().setText("Search"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout.setOnTabSelectedListener(this);
+        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(myPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
         // key=AIzaSyAsKOFTWUN1yRGJ3Bd0SoRWCzSNWkybFoU
-
-    }
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
 
     }
 }

@@ -12,11 +12,19 @@ import capstoneproject.androidnanodegree.com.cochelper.fragments.VideoFragment;
  */
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
-    //public static final int NUM_COUNT=2;
-    int tabCount;
-    public MyPagerAdapter(FragmentManager fm,int tabCount) {
+    public static final int NUM_COUNT=2;
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position)
+        {
+            case 0: return "Videos";
+            default: return "Search";
+        }
+    }
+
+    public MyPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.tabCount=tabCount;
     }
 
     @Override
@@ -33,6 +41,6 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return tabCount;
+        return NUM_COUNT;
     }
 }
