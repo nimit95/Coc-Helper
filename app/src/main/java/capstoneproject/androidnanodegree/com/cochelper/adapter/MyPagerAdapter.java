@@ -33,7 +33,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new VideoFragment();
             case 1:
-                return new VideoFragment();
+                return new FileFragment();
             default:
                 return null;
         }
