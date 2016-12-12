@@ -5,31 +5,22 @@ package capstoneproject.androidnanodegree.com.cochelper.models;
  */
 
 public class Video {
-    private String videoTitle;
-    private String videoUrl;
-    private String imageUrl;
+    private Id id;
+    private Snippet snippet;
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public Id getId() {
+        return id;
     }
 
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
+    public void setId(Id id) {
+        this.id = id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Snippet getSnippet() {
+        return snippet;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getVideoTitle() {
-        return videoTitle;
-    }
-
-    public void setVideoTitle(String videoTitle) {
-        this.videoTitle = videoTitle;
+    public void setSnippet(Snippet snippet) {
+        this.snippet = snippet;
     }
 }

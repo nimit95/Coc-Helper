@@ -10,6 +10,5 @@ public interface Constants {
     String EVENT_SERVICE = "service";
     String TAG_SHARED_PREF = "sharedPreferences";
     String BASE_URL_PROFILE="https://api.clashofclans.com/v1/players/%23G2U9YL8L";
-
-
+    String YOUTUBE_QUERY_URL="https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=viewCount&q=clash of clans&type=video&key=AIzaSyAsKOFTWUN1yRGJ3Bd0SoRWCzSNWkybFoU";
 }
