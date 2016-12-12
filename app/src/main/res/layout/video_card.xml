@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:id="@+id/heading"
         android:contentDescription="@string/heading"
         android:textColor="@color/black"
         android:text="@string/heading"/>

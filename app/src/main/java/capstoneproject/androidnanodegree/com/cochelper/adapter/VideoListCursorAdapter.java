@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import capstoneproject.androidnanodegree.com.cochelper.R;
@@ -18,15 +21,20 @@ import capstoneproject.androidnanodegree.com.cochelper.R;
 
 public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListCursorAdapter.ViewHolder>{
 
+    private Context context;
     public VideoListCursorAdapter(Context context,Cursor cursor){
         super(context,cursor);
+        this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+        public TextView headline;
+        public ImageView image;
+
         public ViewHolder(View view) {
             super(view);
-           // mTextView = view.findViewById(R.id.text);
+            headline = (TextView) view.findViewById(R.id.heading);
+            image = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
 
@@ -41,6 +49,9 @@ public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListC
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
         //MyListItem myListItem = MyListItem.fromCursor(cursor);
-        //viewHolder.mTextView.setText(myListItem.getName());
+        viewHolder.headline.setText(cursor.getString(cursor.getColumnIndex("title")));
+        Picasso.with(context)
+                .load(cursor.getString(cursor.getColumnIndex("url")))
+                .into(viewHolder.image);
     }
 }
