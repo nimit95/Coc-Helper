@@ -1,5 +1,7 @@
 package capstoneproject.androidnanodegree.com.cochelper.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Nimit Agg on 12-12-2016.
  */
@@ -7,7 +9,7 @@ package capstoneproject.androidnanodegree.com.cochelper.models;
 public class Badge {
     private String id;
     private String name;
-    //private String[] iconUrls;
+    private ImageUrl iconUrls;
 
     public String getId() {
         return id;
@@ -17,7 +19,8 @@ public class Badge {
         return name;
     }
 
-    //public String[] getIconUrls() {
-     //   return iconUrls;
-    //}
+    public ImageUrl getIconUrls() {
+        return iconUrls;
+    }
+
 }

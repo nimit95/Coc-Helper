@@ -1,5 +1,6 @@
 package capstoneproject.androidnanodegree.com.cochelper.fragments;
 
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,12 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import capstoneproject.androidnanodegree.com.cochelper.models.Profile;
 import capstoneproject.androidnanodegree.com.cochelper.network.GetResponse;
 import capstoneproject.androidnanodegree.com.cochelper.R;
@@ -24,12 +29,16 @@ import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
  */
 
 public class FileFragment extends Fragment {
-     String result;
+    private String result;
+    @BindView(R.id.league_badge)
+    ImageView leagueBadge;
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.file_fragment, container, false);
+        ButterKnife.bind(getActivity());
         Asy a=new Asy();
         a.execute();
+//        Log.e("dd",result);
         return view;
     }
 
@@ -53,12 +62,15 @@ public class FileFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            Log.e("nimit ", "onPostExecute: "+s );
+            //super.onPostExecute(s);
+            Log.e("ijujnj",s);
             Gson gson = new GsonBuilder().create();
             Profile profile = gson.fromJson(s, Profile.class);
 
-            Log.e("ijujnj",profile.getName());
 
+          /*  Picasso.with(getActivity())
+                    .load(profile.getBadge().getIconUrls().getSmall())
+                    .into(leagueBadge);*/
         }
     }
 }
