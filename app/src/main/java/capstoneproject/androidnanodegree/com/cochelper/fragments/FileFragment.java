@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,12 +31,14 @@ import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
 public class FileFragment extends Fragment {
     private String result;
-    @BindView(R.id.league_badge)
-    ImageView leagueBadge;
+
+    private ImageView leagueBadge;
+    private TextView name;
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.file_fragment, container, false);
-        ButterKnife.bind(getActivity());
+        leagueBadge = (ImageView) view.findViewById(R.id.league_badge);
+        name= (TextView) view.findViewById(R.id.name);
         Asy a=new Asy();
         a.execute();
 //        Log.e("dd",result);
@@ -67,10 +70,10 @@ public class FileFragment extends Fragment {
             Gson gson = new GsonBuilder().create();
             Profile profile = gson.fromJson(s, Profile.class);
 
-
-          /*  Picasso.with(getActivity())
-                    .load(profile.getBadge().getIconUrls().getSmall())
-                    .into(leagueBadge);*/
+            name.setText(profile.getName());
+            Picasso.with(getActivity())
+                    .load(profile.getBadge().getIconUrls().getMedium())
+                    .into(leagueBadge);
         }
     }
 }
