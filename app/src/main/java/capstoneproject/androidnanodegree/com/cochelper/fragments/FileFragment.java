@@ -3,13 +3,18 @@ package capstoneproject.androidnanodegree.com.cochelper.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 
+import capstoneproject.androidnanodegree.com.cochelper.models.Profile;
 import capstoneproject.androidnanodegree.com.cochelper.network.GetResponse;
 import capstoneproject.androidnanodegree.com.cochelper.R;
 import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
@@ -49,7 +54,10 @@ public class FileFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
-            Log.e("ijujnj",s);
+            Gson gson = new GsonBuilder().create();
+            Profile profile = gson.fromJson(s, Profile.class);
+
+            Log.e("ijujnj",profile.getName());
 
         }
     }
