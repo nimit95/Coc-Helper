@@ -49,7 +49,7 @@ public class FileFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("ij",s);
+            Log.d("ijujnj",s);
         }
     }
 }
