@@ -24,13 +24,12 @@ import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
  */
 
 public class FileFragment extends Fragment {
-    private String result;
+     String result;
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.file_fragment, container, false);
         Asy a=new Asy();
         a.execute();
-//        Log.e("dd",result);
         return view;
     }
 
@@ -54,7 +53,7 @@ public class FileFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            //super.onPostExecute(s);
+            Log.e("nimit ", "onPostExecute: "+s );
             Gson gson = new GsonBuilder().create();
             Profile profile = gson.fromJson(s, Profile.class);
 

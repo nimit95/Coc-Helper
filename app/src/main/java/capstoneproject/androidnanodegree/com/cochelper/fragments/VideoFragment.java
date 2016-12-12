@@ -8,11 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
-import java.util.List;
 
 import capstoneproject.androidnanodegree.com.cochelper.R;
+import capstoneproject.androidnanodegree.com.cochelper.models.Profile;
 import capstoneproject.androidnanodegree.com.cochelper.models.Video;
+import capstoneproject.androidnanodegree.com.cochelper.models.VideoList;
 import capstoneproject.androidnanodegree.com.cochelper.network.YoutubeAPIResponse;
 import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
@@ -29,20 +33,30 @@ public class VideoFragment extends Fragment {
         return view;
     }
 
-   public class ShowList extends AsyncTask<Void,Void,Void>
+   public class ShowList extends AsyncTask<Object, Object, String>
    {
 
        @Override
-       protected Void doInBackground(Void... voids) {
+       protected String doInBackground(Object... voids) {
            YoutubeAPIResponse obj=new YoutubeAPIResponse();
            try {
                String x=obj.run(Constants.YOUTUBE_QUERY_URL);
-               Log.e("doInBackground:", x );
+               //Log.e("doInBackground:", x );
+               return x;
            } catch (IOException e) {
                e.printStackTrace();
            }
 
            return null;
+       }
+
+       @Override
+       protected void onPostExecute(String s) {
+           super.onPostExecute(s);
+           Gson gson = new GsonBuilder().create();
+
+           VideoList videoList = gson.fromJson(s, VideoList.class);
+           Log.d("uhuh", "onPostExecute: " + videoList.getVidList().get(0).getSnippet().getTitle());
        }
    }
 }
