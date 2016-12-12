@@ -2,10 +2,13 @@ package capstoneproject.androidnanodegree.com.cochelper.fragments;
 
 import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import capstoneproject.androidnanodegree.com.cochelper.R;
+import capstoneproject.androidnanodegree.com.cochelper.adapter.VideoListCursorAdapter;
 import capstoneproject.androidnanodegree.com.cochelper.database.DatabseColumns;
 import capstoneproject.androidnanodegree.com.cochelper.database.QuoteProvider;
 import capstoneproject.androidnanodegree.com.cochelper.models.Profile;
@@ -29,9 +33,11 @@ import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
 public class VideoFragment extends Fragment {
     //public final String TAG=getContext().getClass().getSimpleName();
+    RecyclerView recyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.video_fragment, container, false);
+        recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         new ShowList().execute();
         return view;
     }
@@ -62,6 +68,8 @@ public class VideoFragment extends Fragment {
 
            ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>(videoList.getVidList().size());
 
+
+
            for (Video planet : videoList.getVidList()){
                ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                        QuoteProvider.Quotes.CONTENT_URI);
@@ -77,6 +85,14 @@ public class VideoFragment extends Fragment {
            } catch(RemoteException | OperationApplicationException e){
                Log.d("database", "Error applying batch insert", e);
            }
+           Cursor c=getContext().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
+            recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
+           VideoListCursorAdapter videoListCursorAdapter= new VideoListCursorAdapter(getActivity(),c);
+           recyclerView.setAdapter(videoListCursorAdapter);
+           /*c.moveToFirst();
+           Log.e("onPostExecute: ",c.getString(c.getColumnIndex("title")) );
+           c.moveToLast();
+           Log.e("onPostExecute: ", c.getString(c.getColumnIndex("title")));*/
            //Log.d("uhuh", "onPostExecute: " + videoList.getVidList().get(0).getSnippet().getTitle());
        }
    }

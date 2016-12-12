@@ -5,7 +5,7 @@ import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
 
 public class DatabseColumns {
-    @DataType(DataType.Type.TEXT) @NotNull @PrimaryKey
+    @DataType(DataType.Type.TEXT) @NotNull
     public static final String VIDEOID = "videoId";
 
     @DataType(DataType.Type.TEXT) @NotNull
