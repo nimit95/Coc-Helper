@@ -4,12 +4,15 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 import capstoneproject.androidnanodegree.com.cochelper.R;
 import capstoneproject.androidnanodegree.com.cochelper.database.DatabseColumns;
@@ -84,6 +87,15 @@ class Other_Widget_List implements RemoteViewsService.RemoteViewsFactory {
         row=new RemoteViews(context.getPackageName(), R.layout.list_item_quote);
         //Picasso.with(context).load(url).into(row,R.id.thumbnail,appWidgetId[position]);
         row.setTextViewText(R.id.heading,title);
+        //Picasso.with(context).load(url).into(row,R.id.thumbnail,new int[]{appWidgetId});
+        /*
+        try {
+            Bitmap b=Picasso.with(context).load(url).get();
+            row.setImageViewBitmap(R.id.thumbnail,b);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+*/
 
         return row;
     }

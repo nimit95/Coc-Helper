@@ -1,5 +1,7 @@
 package capstoneproject.androidnanodegree.com.cochelper.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,6 +9,12 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
+import com.google.android.gms.appinvite.AppInviteInvitation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,12 +23,58 @@ import capstoneproject.androidnanodegree.com.cochelper.adapter.MyPagerAdapter;
 
 public class MainActivity extends AppCompatActivity  {
 
+    private static final int REQUEST_INVITE = 100;
+    public String TAG="";
     //@BindView(R.id.view_pager)
     ViewPager viewPager;
     //@BindView(R.id.toolbar)
     Toolbar toolbar;
    // @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.share:invite();return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.e(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+
+        if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                // Get the invitation IDs of all sent messages
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                for (String id : ids) {
+                    Log.e(TAG, "onActivityResult: sent invitation " + id);
+                }
+            } else {
+                // Sending failed or it was canceled, show failure message to the user
+                // ...
+            }
+        }
+    }
+
+    private void invite() {
+        Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
+                .setMessage(getString(R.string.invitation_message))
+                .build();
+        startActivityForResult(intent, REQUEST_INVITE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +92,7 @@ public class MainActivity extends AppCompatActivity  {
         viewPager.setAdapter(myPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         // key=AIzaSyAsKOFTWUN1yRGJ3Bd0SoRWCzSNWkybFoU
+        TAG=this.getClass().getSimpleName();
 
     }
 }
