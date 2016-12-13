@@ -40,8 +40,6 @@ class Other_Widget_List implements RemoteViewsService.RemoteViewsFactory {
     @Override
     public void onCreate() {
         Log.e("Item_Widget_Oncreate","is running");
-
-
     }
 
     @Override
@@ -81,13 +79,9 @@ class Other_Widget_List implements RemoteViewsService.RemoteViewsFactory {
 
             title = c.getString(c.getColumnIndex(DatabseColumns.TITLE));
 
-            //change = c.getString(c.getColumnIndex(QuoteColumns.PERCENT_CHANGE));
-
         }
-
+        Log.e( "getViewAt: ","hi "+ title  );
         row=new RemoteViews(context.getPackageName(), R.layout.list_item_quote);
-        //ImageView img=(ImageView)
-        //Picasso.with(context).load(url).into();
         row.setTextViewText(R.id.heading,title);
 
         return row;

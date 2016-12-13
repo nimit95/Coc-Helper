@@ -66,7 +66,7 @@ public class FileFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
-            Log.e("ijujnj",s);
+           // Log.e("ijujnj",s);
             Gson gson = new GsonBuilder().create();
             Profile profile = gson.fromJson(s, Profile.class);
 

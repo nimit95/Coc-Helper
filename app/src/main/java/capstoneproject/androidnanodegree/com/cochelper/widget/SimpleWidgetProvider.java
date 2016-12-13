@@ -10,9 +10,6 @@ import android.widget.RemoteViews;
 
 import capstoneproject.androidnanodegree.com.cochelper.R;
 
-/**
- * Created by dell on 12/13/2016.
- */
 
 public class SimpleWidgetProvider extends AppWidgetProvider {
     @Override
