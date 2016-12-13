@@ -81,9 +81,12 @@ public class FileFragment extends Fragment {
         @Override
         protected String doInBackground(String... tag) {
             GetResponse res= new GetResponse();
-            Log.d("nimit",tag[0]);
+
+            if(tag[0].charAt(0)=='#')
+                tag[0] = tag[0].substring(1);
+            Log.e("nimit",tag[0]);
             try {
-                return res.run(Constants.BASE_URL_PROFILE);
+                return res.run(Constants.BASE_URL_PROFILE+tag[0]);
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
@@ -100,14 +103,24 @@ public class FileFragment extends Fragment {
                 Profile profile = gson.fromJson(s, Profile.class);
                 sharedPreferences.setString("tag",profileTag.getText().toString());
                 name.setText(profile.getName());
-                Picasso.with(getActivity())
-                        .load(profile.getBadge().getIconUrls().getMedium())
-                        .into(leagueBadge);
+                if(profile.getBadge() != null)
+                    Picasso.with(getActivity())
+                            .load(profile.getBadge().getIconUrls().getMedium())
+                            .into(leagueBadge);
+                else
+                    leagueBadge.setImageDrawable(getResources().getDrawable(R.drawable.unrankedleague));
                 warStarts.setText(getString(R.string.war_star) + "- " + profile.getWarStars());
-                troopsDonated.setText(getString(R.string.troop_donated) + "- " + profile.getDonations());
-                troopsRec.setText(getString(R.string.troop_recieved) + "- " + profile.getDonationsReceived());
-                float don = (profile.getDonations() * 100) / (profile.getDonations() + profile.getDonationsReceived());
-                percTroop.setText("Donation Ratio" + String.valueOf(don)+"%");
+                troopsDonated.setText(getString(R.string.troop_donated) + " - " + profile.getDonations());
+                troopsRec.setText(getString(R.string.troop_recieved) + " - " + profile.getDonationsReceived());
+                float don;
+                try {
+                    don = (profile.getDonations() * 100) / profile.getDonationsReceived();
+                }
+                catch (Exception e)
+                {
+                    don=0;
+                }
+                percTroop.setText("Donation Ratio -" + String.valueOf(don)+"%");
             }
             else{
                 Toast.makeText(getActivity(),auth,Toast.LENGTH_LONG).show();
