@@ -1,8 +1,6 @@
 package capstoneproject.androidnanodegree.com.cochelper.models;
 
-/**
- * Created by dell on 12/12/2016.
- */
+
 
 public class Video {
     private Id id;

@@ -3,24 +3,21 @@ package capstoneproject.androidnanodegree.com.cochelper.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 
 import capstoneproject.androidnanodegree.com.cochelper.fragments.FileFragment;
 import capstoneproject.androidnanodegree.com.cochelper.fragments.VideoFragment;
 
-/**
- * Created by dell on 12/12/2016.
- */
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
-    public static final int NUM_COUNT=2;
+    public static final int NUM_COUNT = 2;
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position)
-        {
-            case 0: return "Videos";
-            default: return "Profile";
+        switch (position) {
+            case 0:
+                return "Videos";
+            default:
+                return "Profile";
         }
     }
 

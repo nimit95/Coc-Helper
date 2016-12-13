@@ -1,8 +1,5 @@
 package capstoneproject.androidnanodegree.com.cochelper.adapter;
 
-/**
- * Created by Nimit Agg on 12-12-2016.
- */
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,23 +15,22 @@ import android.widget.TextView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 
 import capstoneproject.androidnanodegree.com.cochelper.R;
 import capstoneproject.androidnanodegree.com.cochelper.database.QuoteProvider;
 import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 
 
-public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListCursorAdapter.ViewHolder>{
+public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListCursorAdapter.ViewHolder> {
 
     static private Context context;
-    //public Cursor c;
-    public VideoListCursorAdapter(Context context,Cursor cursor){
-        super(context,cursor);
+
+    public VideoListCursorAdapter(Context context, Cursor cursor) {
+        super(context, cursor);
         this.context = context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView headline;
         public ImageView image;
         private FirebaseAnalytics mFirebaseAnalytics;
@@ -52,22 +48,22 @@ public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListC
         @Override
         public void onClick(View view) {
             Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, ""+getAdapterPosition());
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "" + getAdapterPosition());
             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, headline.getText().toString());
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-            Cursor c=view.getContext().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
+            Cursor c = view.getContext().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI, null, null, null, null);
             c.moveToFirst();
             c.moveToPosition(getAdapterPosition());
 
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.YOUTUBE_VIDEO_URL + c.getString(c.getColumnIndex("videoId")) ));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.YOUTUBE_VIDEO_URL + c.getString(c.getColumnIndex("videoId"))));
             context.startActivity(intent);
         }
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)  {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.video_card, parent, false);
 
@@ -78,13 +74,10 @@ public class VideoListCursorAdapter extends CursorRecyclerViewAdapter<VideoListC
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
-        //MyListItem myListItem = MyListItem.fromCursor(cursor);
         viewHolder.headline.setText(cursor.getString(cursor.getColumnIndex("title")));
         Picasso.with(context)
                 .load(cursor.getString(cursor.getColumnIndex("url")))
                 .into(viewHolder.image);
-
-        //c=cursor;
     }
 
 }

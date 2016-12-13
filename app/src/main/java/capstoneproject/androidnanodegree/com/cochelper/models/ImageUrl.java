@@ -1,8 +1,6 @@
 package capstoneproject.androidnanodegree.com.cochelper.models;
 
-/**
- * Created by Nimit Agg on 12-12-2016.
- */
+
 public class ImageUrl {
     private String tiny;
     private String small;

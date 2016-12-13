@@ -1,9 +1,8 @@
 package capstoneproject.androidnanodegree.com.cochelper.fragments;
-import android.content.SharedPreferences;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +21,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
+import capstoneproject.androidnanodegree.com.cochelper.R;
 import capstoneproject.androidnanodegree.com.cochelper.models.Profile;
 import capstoneproject.androidnanodegree.com.cochelper.network.GetResponse;
-import capstoneproject.androidnanodegree.com.cochelper.R;
 import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 import capstoneproject.androidnanodegree.com.cochelper.utils.SuperPrefs;
 
-/*
- * Created by nimit on 12/12/2016.
- */
 
 public class FileFragment extends Fragment {
     private String result;
@@ -38,32 +35,31 @@ public class FileFragment extends Fragment {
     private Button getProfile;
     private ImageView leagueBadge;
     private SuperPrefs sharedPreferences;
-    private TextView name,warStarts,troopsDonated, troopsRec , percTroop;
+    private TextView name, warStarts, troopsDonated, troopsRec, percTroop;
+
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.file_fragment, container, false);
         init(view);
 
         sharedPreferences = new SuperPrefs(getActivity());
-        //Asy a=new Asy();
-        if(sharedPreferences.stringExists("tag"))
+        if (sharedPreferences.stringExists("tag"))
             new Asy().execute(sharedPreferences.getString("tag"));
-//        Log.e("dd",result);
         getProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(profileTag.getText().toString().compareToIgnoreCase("")!=0)
+                if (profileTag.getText().toString().compareToIgnoreCase("") != 0)
                     new Asy().execute(profileTag.getText().toString());
                 else
-                    Toast.makeText(getActivity(),"Enter Profile Tag",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Enter Profile Tag", Toast.LENGTH_LONG).show();
             }
         });
         return view;
     }
-    void init(View view)
-    {
+
+    void init(View view) {
         leagueBadge = (ImageView) view.findViewById(R.id.league_badge);
-        name= (TextView) view.findViewById(R.id.name);
+        name = (TextView) view.findViewById(R.id.name);
         warStarts = (TextView) view.findViewById(R.id.war_stars);
         troopsDonated = (TextView) view.findViewById(R.id.troop_donated);
         troopsRec = (TextView) view.findViewById(R.id.troop_recieved);
@@ -71,22 +67,23 @@ public class FileFragment extends Fragment {
         profileTag = (EditText) view.findViewById(R.id.profile_tag);
         getProfile = (Button) view.findViewById(R.id.get);
     }
+
     @Override
-    public void onCreate( Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    public class Asy extends AsyncTask<String,Void,String>{
+    public class Asy extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... tag) {
-            GetResponse res= new GetResponse();
+            GetResponse res = new GetResponse();
 
-            if(tag[0].charAt(0)=='#')
+            if (tag[0].charAt(0) == '#')
                 tag[0] = tag[0].substring(1);
-            Log.e("nimit",tag[0]);
+            Log.e("nimit", tag[0]);
             try {
-                return res.run(Constants.BASE_URL_PROFILE+tag[0]);
+                return res.run(Constants.BASE_URL_PROFILE + tag[0]);
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
@@ -95,15 +92,14 @@ public class FileFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            //super.onPostExecute(s);
-            Log.e("ijujnj",s);
+            Log.e("ijujnj", s);
             String auth = chechAuth(s);
-            if(auth.compareToIgnoreCase("Correct")==0) {
+            if (auth.compareToIgnoreCase("Correct") == 0) {
                 Gson gson = new GsonBuilder().create();
                 Profile profile = gson.fromJson(s, Profile.class);
-                sharedPreferences.setString("tag",profileTag.getText().toString());
+                sharedPreferences.setString("tag", profileTag.getText().toString());
                 name.setText(profile.getName());
-                if(profile.getBadge() != null)
+                if (profile.getBadge() != null)
                     Picasso.with(getActivity())
                             .load(profile.getBadge().getIconUrls().getMedium())
                             .into(leagueBadge);
@@ -115,24 +111,22 @@ public class FileFragment extends Fragment {
                 float don;
                 try {
                     don = (profile.getDonations() * 100) / profile.getDonationsReceived();
+                } catch (Exception e) {
+                    don = 0;
                 }
-                catch (Exception e)
-                {
-                    don=0;
-                }
-                percTroop.setText("Donation Ratio -" + String.valueOf(don)+"%");
-            }
-            else{
-                Toast.makeText(getActivity(),auth + "  Try Again! ",Toast.LENGTH_LONG).show();
+                percTroop.setText("Donation Ratio -" + String.valueOf(don) + "%");
+            } else {
+                Toast.makeText(getActivity(), auth + "  Try Again! ", Toast.LENGTH_LONG).show();
             }
         }
     }
-    String chechAuth(String s){
+
+    String chechAuth(String s) {
         try {
             JSONObject jsonObject = new JSONObject(s);
-            if(jsonObject.has("reason") && jsonObject.has("message"))
+            if (jsonObject.has("reason") && jsonObject.has("message"))
                 return jsonObject.getString("message");
-            else if(jsonObject.has("reason"))
+            else if (jsonObject.has("reason"))
                 return jsonObject.getString("reason");
             else
                 return "Correct";
