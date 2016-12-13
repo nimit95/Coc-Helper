@@ -2,5 +2,11 @@
     <string name="app_name">CoC Helper</string>
     <string name="badge">league Badge</string>
     <string name="name">Name</string>
+    <string name="war_star">War Star</string>
+    <string name="troop_donated">Troops Donated</string>
+    <string name="troop_recieved">Troops Recieved</string>
+    <string name="get">get</string>
+    <string name="enter_profile">Enter Profile Tag</string>
+    <string name="perc_dona">Percentage</string>
     <string name="heading">Heading</string>
 </resources>

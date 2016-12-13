@@ -2,6 +2,7 @@ package capstoneproject.androidnanodegree.com.cochelper.network;
 
 import java.io.IOException;
 
+import capstoneproject.androidnanodegree.com.cochelper.utils.Constants;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,10 +18,11 @@ public class GetResponse {
 
     public String run(String url) throws IOException {
         Request request = new Request.Builder()
-                .url(url).header("Authorization","Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImY0ODZlOGU3LTFmMmYtNDA0Yi05MGY5LWJmYjQzZGVkODg2OSIsImlhdCI6MTQ4MTU3MzQwNCwic3ViIjoiZGV2ZWxvcGVyLzVkMGI0OGEwLTRhYTUtODg3ZS1kZjNiLWZiYTg0YWQ1MjQ3ZSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjEyMi4xNjIuMTgxLjEwNyIsIjEyMi4xNjEuMjEyLjIwNyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.Wfn95hMOuVzyRBxLSQsrtL_RRhXriFDX68HYuFAp05E9xUg2WsfBONvbG07MtwwYOdJXeqMb-639VOorNoMLrQ")
+                .url(url).header("Authorization","Bearer " + Constants.AUTH_TOKEN)
                 .build();
 
         Response response = client.newCall(request).execute();
+
         return response.body().string();
     }
 }

@@ -1,5 +1,7 @@
 package capstoneproject.androidnanodegree.com.cochelper.network;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
@@ -19,6 +21,7 @@ public class YoutubeAPIResponse {
                 .build();
 
         Response response = client.newCall(request).execute();
+        Log.e("i",response.code()+"");
         return response.body().string();
     }
 }
