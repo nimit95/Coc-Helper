@@ -55,7 +55,7 @@ public class FileFragment extends Fragment {
                 if(profileTag.getText().toString().compareToIgnoreCase("")!=0)
                     new Asy().execute(profileTag.getText().toString());
                 else
-                    Toast.makeText(getActivity(),"Enter Profile",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Enter Profile Tag",Toast.LENGTH_LONG).show();
             }
         });
         return view;
@@ -123,7 +123,7 @@ public class FileFragment extends Fragment {
                 percTroop.setText("Donation Ratio -" + String.valueOf(don)+"%");
             }
             else{
-                Toast.makeText(getActivity(),auth,Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),auth + "  Try Again! ",Toast.LENGTH_LONG).show();
             }
         }
     }
