@@ -82,6 +82,7 @@ class Other_Widget_List implements RemoteViewsService.RemoteViewsFactory {
         }
         Log.e( "getViewAt: ","hi "+ title  );
         row=new RemoteViews(context.getPackageName(), R.layout.list_item_quote);
+        //Picasso.with(context).load(url).into(row,R.id.thumbnail,appWidgetId[position]);
         row.setTextViewText(R.id.heading,title);
 
         return row;

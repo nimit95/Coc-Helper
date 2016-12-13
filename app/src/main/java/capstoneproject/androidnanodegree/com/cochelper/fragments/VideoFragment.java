@@ -42,13 +42,13 @@ public class VideoFragment extends Fragment {
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
 
         Cursor c=getContext().getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
-        /*if(c.getCount()!=0)
+        if(c.getCount()!=0)
         {
             recyclerView.setLayoutManager( new GridLayoutManager(getActivity(),2));
             recyclerView.setHasFixedSize(true);
             VideoListCursorAdapter videoListCursorAdapter= new VideoListCursorAdapter(getActivity(),c);
             recyclerView.setAdapter(videoListCursorAdapter);
-        }*/
+        }
         new ShowList().execute();
         return view;
     }
@@ -79,11 +79,11 @@ public class VideoFragment extends Fragment {
 
            ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>(videoList.getVidList().size());
 
-/*
+
             if(videoList.getVidList().size()!=0)
             {
                 getContext().getContentResolver().delete(QuoteProvider.Quotes.CONTENT_URI,null,null);
-            }*/
+            }
            for (Video planet : videoList.getVidList()){
                ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                        QuoteProvider.Quotes.CONTENT_URI);
